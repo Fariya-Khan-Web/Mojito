@@ -1,12 +1,28 @@
 import React, { useRef } from 'react';
 import { sliderLists } from '../../constants';
 import { useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const Menu = () => {
     const contentRef = useRef()
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const totalCocktails = sliderLists.length
+
+    useGSAP(() => {
+        gsap.fromTo('#title', { opacity: 0 }, { opacity: 1, duration: 1 });
+        gsap.fromTo('.cocktail img', { opacity: 0, xPercent: -100 }, {
+            xPercent: 0, opacity: 1, duration: 1, ease: 'power1.inOut'
+        })
+        gsap.fromTo('.details h2', { yPercent: 100, opacity: 0 }, {
+            yPercent: 0, opacity: 100, ease: 'power1.inOut'
+        })
+        gsap.fromTo('.details p', { yPercent: 100, opacity: 0 }, {
+            yPercent: 0, opacity: 100, ease: 'power1.inOut'
+        })
+    }, [currentIndex])
+
 
     const goToSlide = (idx) => {
         const newIndex = (idx + totalCocktails) % totalCocktails
@@ -67,9 +83,9 @@ const Menu = () => {
                 </div>
 
                 <div className="recipe">
-                    <div 
-                    ref={contentRef} 
-                    className="info">
+                    <div
+                        ref={contentRef}
+                        className="info">
                         <p>Recipe for:</p>
                         <p id="title">{currentCocktail.name}</p>
                     </div>
