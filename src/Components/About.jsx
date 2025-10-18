@@ -1,6 +1,54 @@
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { SplitText } from 'gsap/all';
 import React from 'react';
 
 const About = () => {
+
+    useGSAP(() => {
+
+        const aboutTL = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top 50%',
+                end: 'top 0%',
+                scrub: true,
+            }
+        })
+
+        const titleSplit = SplitText.create('#about h2', {
+            type: 'words'
+        })
+        const paraSplit = SplitText.create('.para', {
+            type: 'lines'
+        })
+
+        aboutTL
+            .from(titleSplit.words, {
+                opacity: 0,
+                y: 60,
+                stagger: 0.1,
+                duration: 1.9
+            })
+            .from(paraSplit.lines, {
+                opacity: 0,
+                y: 60,
+                stagger: 0.2,
+                duration: 1,
+                ease: 'expo.out'
+            })
+            .from('.top-grid',{
+                opacity: 0,
+                y: 10,
+                duration:1,
+            })
+            .from('.bottom-grid',{
+                opacity: 0,
+                y: 10,
+                duration:1,
+            })
+    }, [])
+
     return (
         <section id='about'>
             <div className='mb-16 px-5 md:px-0'>
@@ -13,7 +61,7 @@ const About = () => {
 
                     {/* detai & profile part */}
                     <div className=' sub-content col-span-8 md:col-span-4'>
-                        <p className='w-full'>Every cocktail we serve is a reflection of our obsession with detail - from the first muddle to last garnish. That care is what turns a simple drink into something truely memorable.</p>
+                        <p className='w-full para'>Every cocktail we serve is a reflection of our obsession with detail - from the first muddle to last garnish. That care is what turns a simple drink into something truely memorable.</p>
 
                         <div className='grid md:grid-cols-2 gap-4 '>
                             <div>
