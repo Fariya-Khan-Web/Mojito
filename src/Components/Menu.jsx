@@ -79,7 +79,7 @@ const Menu = () => {
                 </div>
 
                 <div className="cocktail">
-                    <img src={sliderLists[currentIndex].image} alt="menu-item" className='mt-[-120px]' />
+                    <img src={sliderLists[currentIndex].image} alt="menu-item" />
                 </div>
 
                 <div className="recipe">
